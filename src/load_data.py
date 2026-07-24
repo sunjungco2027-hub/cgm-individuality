@@ -22,9 +22,17 @@ def load_subject(path):
     return df
 
 
+def meal_events(df):
+    """Rows that mark a meal (the meal-calorie column is > 0)."""
+    cal = pd.to_numeric(df.get("Calories"), errors="coerce").fillna(0)
+    return df[cal > 0]
+
+
 if __name__ == "__main__":
     files = subject_files()
     print("found", len(files), "subject files")
-    if files:
-        df = load_subject(files[0])
-        print(os.path.basename(files[0]), "->", df.shape)
+    total_meals = 0
+    for f in files:
+        df = load_subject(f)
+        total_meals += len(meal_events(df))
+    print("total meal events:", total_meals)
