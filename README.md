@@ -11,6 +11,12 @@ curve shape is person-specific vs. just noise from meal to meal.
 CGMacros from PhysioNet. The data isn't in this repo — download it and drop the
 `CGMacros-XXX.csv` files (and `bio.csv`) into a `data/` folder.
 
+## what's here
+
+- `src/load_data.py` - read the CGMacros files, find meal events
+- `src/windows.py` - pull the -30 to +240 min window around a meal, baseline + peak
+
 ## status
 
-early, still setting things up.
+early. next: more curve features (auc, time to peak, slopes) then look at how
+consistent they are within a person.
