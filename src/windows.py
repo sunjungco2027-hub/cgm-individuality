@@ -29,3 +29,8 @@ def excursion_height(w):
 def auc_above_baseline(w):
     b = baseline(w)
     return np.trapezoid(w["Libre GL"] - b, w["min"])
+
+
+def time_to_peak(w):
+    i = w["Libre GL"].idxmax()
+    return w.loc[i, "min"]
