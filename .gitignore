@@ -2,6 +2,9 @@
 data/
 *.zip
 
+# generated
+features.csv
+
 # python
 __pycache__/
 *.pyc
