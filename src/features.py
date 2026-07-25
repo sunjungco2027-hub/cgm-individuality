@@ -15,8 +15,10 @@ def height(w):
 
 
 def auc(w):
+    # area of the rise above baseline (ignore dips below it)
     b = baseline(w)
-    return np.trapezoid(w["Libre GL"] - b, w["min"])
+    above = np.clip(w["Libre GL"] - b, 0, None)
+    return np.trapezoid(above, w["min"])
 
 
 def time_to_peak(w):
