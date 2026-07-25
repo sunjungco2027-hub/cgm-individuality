@@ -1,4 +1,5 @@
 """pull the glucose window around each meal."""
+import numpy as np
 import pandas as pd
 
 
@@ -19,3 +20,12 @@ def baseline(w):
 
 def peak(w):
     return w["Libre GL"].max()
+
+
+def excursion_height(w):
+    return peak(w) - baseline(w)
+
+
+def auc_above_baseline(w):
+    b = baseline(w)
+    return np.trapezoid(w["Libre GL"] - b, w["min"])
