@@ -20,7 +20,6 @@ def build():
     rows = []
     for path in ld.subject_files():
         df = ld.load_subject(path)
-        print("processing", os.path.basename(path))  # debug
         for t in ld.meal_events(df)["Timestamp"]:
             w = W.excursion(df, t)
             if len(w) < 60:
