@@ -31,6 +31,9 @@ def time_to_return(w):
     pk = time_to_peak(w)
     after = w[w["min"] > pk]
     back = after[after["Libre GL"] <= b + 5]
+    if len(back) == 0:
+        # never got back to baseline inside the window
+        return w["min"].iloc[-1]
     return back["min"].iloc[0]
 
 
