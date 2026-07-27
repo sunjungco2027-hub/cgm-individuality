@@ -1,5 +1,6 @@
 """per-meal features from the excursion window."""
 import numpy as np
+from scipy.stats import kurtosis, skew
 
 
 def baseline(w):
@@ -52,6 +53,14 @@ def down_slope(w):
     return dg / dt if dt > 0 else np.nan
 
 
+def curve_skew(w):
+    return skew(w["Libre GL"])
+
+
+def curve_kurtosis(w):
+    return kurtosis(w["Libre GL"])
+
+
 def features(w):
     return {
         "baseline": baseline(w),
@@ -62,4 +71,6 @@ def features(w):
         "up_slope": up_slope(w),
         "down_slope": down_slope(w),
         "time_to_return": time_to_return(w),
+        "skew": curve_skew(w),
+        "kurtosis": curve_kurtosis(w),
     }
