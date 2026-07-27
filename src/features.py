@@ -26,6 +26,21 @@ def time_to_peak(w):
     return w.loc[i, "min"]
 
 
+def up_slope(w):
+    ttp = time_to_peak(w)
+    return height(w) / ttp if ttp > 0 else np.nan
+
+
+def down_slope(w):
+    pk = time_to_peak(w)
+    after = w[w["min"] >= pk]
+    if len(after) < 2:
+        return np.nan
+    dg = after["Libre GL"].iloc[-1] - peak(w)
+    dt = after["min"].iloc[-1] - pk
+    return dg / dt if dt > 0 else np.nan
+
+
 def features(w):
     return {
         "baseline": baseline(w),
@@ -33,4 +48,6 @@ def features(w):
         "height": height(w),
         "auc": auc(w),
         "time_to_peak": time_to_peak(w),
+        "up_slope": up_slope(w),
+        "down_slope": down_slope(w),
     }
