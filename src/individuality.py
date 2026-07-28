@@ -45,8 +45,9 @@ def adjusted_icc(df, col, cmat):
 def run(path="features.csv"):
     df = pd.read_csv(path)
     cmat = cov.covariate_matrix()
+    print(f"{'feature':16s} {'icc':>6s} {'icc_adj':>8s}")
     for c in FEATURES:
-        print(f"{c:16s} {icc(df, c):.3f} {adjusted_icc(df, c, cmat):.3f}")
+        print(f"{c:16s} {icc(df, c):6.3f} {adjusted_icc(df, c, cmat):8.3f}")
 
 
 if __name__ == "__main__":
