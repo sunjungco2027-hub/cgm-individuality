@@ -31,10 +31,11 @@ def icc(df, col, group="subject"):
 def residualize(df, col, cmat):
     d = df.merge(cmat, on="subject", how="left")
     feats = [c for c in cmat.columns if c != "subject"]
+    d = d.dropna(subset=feats + [col]).copy()
     X = d[feats].values
     y = d[col].values
-    resid = y - LinearRegression().fit(X, y).predict(X)
-    return d.assign(**{col: resid})
+    d[col] = y - LinearRegression().fit(X, y).predict(X)
+    return d
 
 
 def adjusted_icc(df, col, cmat):
