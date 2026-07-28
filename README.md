@@ -17,17 +17,19 @@ CGMacros from PhysioNet. The data isn't in this repo — download it and drop th
 - `src/windows.py` - pull the -30 to +240 min window around a meal
 - `src/features.py` - baseline, peak, height, auc, timing, slopes, shape
 - `build_features.py` - run everything into one row-per-meal table
-- `src/individuality.py` - icc per feature (how person-specific each one is)
+- `src/covariates.py` - per-subject demographics + labs to adjust against
+- `src/individuality.py` - icc per feature, raw and covariate-adjusted
 
 ```
 python build_features.py       # writes features.csv
-python src/individuality.py    # icc per feature
+python src/individuality.py    # icc + covariate-adjusted icc per feature
 ```
 
-So far baseline and peak glucose are the most person-specific (icc ~0.55-0.65),
-timing/shape features much less so.
+Baseline and peak glucose stay the most person-specific even after adjusting for
+age, sex, bmi, ethnicity and the lab panel (adjusted icc ~0.20-0.24), so it's not
+just demographics.
 
 ## status
 
-next: adjust the icc for age/bmi/etc. to see what individuality survives, and
-try telling people apart from their meal responses.
+next: tell people apart from their meal responses (nearest-neighbour on the
+residualized features) to put a number on the individuality.
