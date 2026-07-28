@@ -28,6 +28,14 @@ def meal_events(df):
     return df[cal > 0]
 
 
+def load_bio(data_dir=DATA_DIR):
+    """Per-subject demographics and lab values (bio.csv)."""
+    path = glob.glob(os.path.join(data_dir, "**", "bio.csv"), recursive=True)[0]
+    b = pd.read_csv(path)
+    b.columns = [c.strip() for c in b.columns]
+    return b
+
+
 if __name__ == "__main__":
     files = subject_files()
     print("found", len(files), "subject files")
