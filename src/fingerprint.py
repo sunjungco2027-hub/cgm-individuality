@@ -3,6 +3,7 @@ out age/bmi/labs?"""
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics.pairwise import cosine_distances
 from sklearn.preprocessing import StandardScaler
 
 import covariates as cov
@@ -23,3 +24,12 @@ def residual_matrix(path="features.csv"):
         res[f] = y - LinearRegression().fit(X, y).predict(X)
     Z = StandardScaler().fit_transform(pd.DataFrame(res).values)
     return Z, d["subject"].values
+
+
+def within_between(Z, subjects):
+    """mean cosine distance for same-person meal pairs vs different-person."""
+    D = cosine_distances(Z)
+    same = subjects[:, None] == subjects[None, :]
+    within = D[same].mean()
+    between = D[~same].mean()
+    return within, between
