@@ -34,3 +34,18 @@ def within_between(Z, subjects):
     within = D[same].mean()
     between = D[~same].mean()
     return within, between
+
+
+def separation_test(Z, subjects, n_perm=300, seed=0):
+    """is the within-vs-between gap bigger than you'd get by shuffling labels?"""
+    D = cosine_distances(Z)
+
+    def gap(sub):
+        same = sub[:, None] == sub[None, :]
+        np.fill_diagonal(same, False)
+        return D[~same].mean() - D[same].mean()
+
+    obs = gap(subjects)
+    rng = np.random.default_rng(seed)
+    count = sum(gap(rng.permutation(subjects)) >= obs for _ in range(n_perm))
+    return obs, (count + 1) / (n_perm + 1)
