@@ -26,6 +26,7 @@ CGMacros from PhysioNet. The data isn't in this repo — download it and drop th
 python build_features.py       # writes features.csv
 python src/individuality.py    # icc + covariate-adjusted icc per feature
 python src/reid.py             # re-identification accuracy
+python tests/test_smoke.py     # quick sanity check
 ```
 
 Baseline and peak glucose stay the most person-specific even after adjusting for
