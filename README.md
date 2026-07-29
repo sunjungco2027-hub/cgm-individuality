@@ -19,17 +19,22 @@ CGMacros from PhysioNet. The data isn't in this repo — download it and drop th
 - `build_features.py` - run everything into one row-per-meal table
 - `src/covariates.py` - per-subject demographics + labs to adjust against
 - `src/individuality.py` - icc per feature, raw and covariate-adjusted
+- `src/fingerprint.py` - cosine distance within vs between people, permutation test
+- `src/reid.py` - nearest-neighbour: guess whose meal a held-out one is
 
 ```
 python build_features.py       # writes features.csv
 python src/individuality.py    # icc + covariate-adjusted icc per feature
+python src/reid.py             # re-identification accuracy
 ```
 
 Baseline and peak glucose stay the most person-specific even after adjusting for
-age, sex, bmi, ethnicity and the lab panel (adjusted icc ~0.20-0.24), so it's not
-just demographics.
+age, sex, bmi, ethnicity and the lab panel (adjusted icc ~0.20-0.24). After
+removing the covariates, meals from the same person are still closer to each
+other than to other people's (within cosine ~0.91 vs between ~1.00, permutation
+p ~0.003), and a nearest-neighbour picks the right person for a held-out meal
+well above chance (top-5 ~0.4 vs 0.11 chance).
 
 ## status
 
-next: tell people apart from their meal responses (nearest-neighbour on the
-residualized features) to put a number on the individuality.
+next: use these features to predict diabetes and see which ones matter.
