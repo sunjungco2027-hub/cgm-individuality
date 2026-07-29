@@ -49,3 +49,12 @@ def separation_test(Z, subjects, n_perm=300, seed=0):
     rng = np.random.default_rng(seed)
     count = sum(gap(rng.permutation(subjects)) >= obs for _ in range(n_perm))
     return obs, (count + 1) / (n_perm + 1)
+
+
+def cohens_d(Z, subjects):
+    D = cosine_distances(Z)
+    iu = np.triu_indices(len(subjects), k=1)
+    same = (subjects[:, None] == subjects[None, :])[iu]
+    w, b = D[iu][same], D[iu][~same]
+    pooled = np.sqrt((w.var(ddof=1) + b.var(ddof=1)) / 2)
+    return (b.mean() - w.mean()) / pooled
