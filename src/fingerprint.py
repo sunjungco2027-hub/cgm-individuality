@@ -30,6 +30,7 @@ def within_between(Z, subjects):
     """mean cosine distance for same-person meal pairs vs different-person."""
     D = cosine_distances(Z)
     same = subjects[:, None] == subjects[None, :]
+    np.fill_diagonal(same, False)  # don't compare a meal with itself
     within = D[same].mean()
     between = D[~same].mean()
     return within, between
