@@ -22,6 +22,7 @@ def split(subjects, frac=0.8, seed=0):
 
 
 def run(path="features.csv", k=10):
+    # note: top-1/top-5 move around a bit depending on the split seed
     Z, subjects = residual_matrix(path)
     tr, te = split(subjects)
     knn = KNeighborsClassifier(n_neighbors=k, metric="cosine").fit(Z[tr], subjects[tr])
