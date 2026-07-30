@@ -15,6 +15,7 @@ FEATS = ["baseline", "peak", "height", "auc", "time_to_peak",
 
 df = pd.read_csv("features.csv")
 df["y"] = df["subject"].map(L.diabetes_labels())
+df = df.dropna(subset=FEATS + ["y"])
 X = df[FEATS].values
 y = df["y"].astype(int).values
 
