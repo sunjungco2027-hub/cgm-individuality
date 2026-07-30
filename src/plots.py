@@ -1,5 +1,5 @@
 """make the figures: the fingerprint distance histogram and feature weights."""
-import sys
+import os
 
 import matplotlib
 matplotlib.use("Agg")
@@ -45,6 +45,7 @@ def importance_bar():
 
 
 if __name__ == "__main__":
+    os.makedirs("figures", exist_ok=True)
     distance_hist()
     importance_bar()
     print("saved figures")
