@@ -25,3 +25,16 @@ individual differences are real. What they leave open is whether those
 differences are stable and specific enough to act as a signature of the person
 once the obvious explanations, such as age, body mass, and blood chemistry, are
 accounted for.
+
+Measuring how much of a trait belongs to the person is an old problem. The
+intraclass correlation coefficient (ICC) splits the variance of repeated
+measurements into a between-subject part and a within-subject part, so a high ICC
+means a feature is consistent within a person yet differs across people. A
+related but stricter view comes from biometrics, where the question is not only
+whether people differ on average but whether an unseen sample can be matched back
+to the right individual. Posing CGM meal responses this way, as a
+re-identification task, turns a loose notion of individuality into something
+countable: how often the correct person appears among the top guesses for a
+held-out meal. This framing has not, as far as we can tell, been applied to
+postprandial glucose curves, even though recognizing a person from a
+physiological signal is a familiar goal elsewhere.
