@@ -40,6 +40,14 @@ def run(path="features.csv"):
                               method="predict_proba")[:, 1]
     print("grouped-cv auc:", round(roc_auc_score(y, proba), 3))
 
+    # which features carry the most weight (standardized coefficients)
+    pipe.fit(X, y)
+    coefs = pipe[-1].coef_[0]
+    order = np.argsort(-np.abs(coefs))
+    print("\ntop features:")
+    for i in order:
+        print(f"  {FEATURES[i]:16s} {coefs[i]:+.2f}")
+
 
 if __name__ == "__main__":
     run()
