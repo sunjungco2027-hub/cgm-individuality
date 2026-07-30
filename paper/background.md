@@ -33,9 +33,9 @@ means a feature is consistent within a person yet differs across people. A
 related but stricter view comes from biometrics, where the question is not only
 whether people differ on average but whether an unseen sample can be matched back
 to the right individual. Posing CGM meal responses this way, as a
-re-identification task, turns a loose notion of individuality into something
-countable: how often the correct person appears among the top guesses for a
-held-out meal. This framing has not, as far as we can tell, been applied to
+re-identification task, turns a loose notion of individuality into a measurable
+quantity: how often the correct person appears among the top guesses for a
+held-out meal. To our knowledge this framing has not been applied to
 postprandial glucose curves, even though recognizing a person from a
 physiological signal is a familiar goal elsewhere.
 
