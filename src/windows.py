@@ -1,8 +1,10 @@
 """pull the glucose window around each meal."""
 import pandas as pd
 
+from config import WINDOW_AFTER, WINDOW_BEFORE
 
-def excursion(df, meal_time, before=30, after=240):
+
+def excursion(df, meal_time, before=WINDOW_BEFORE, after=WINDOW_AFTER):
     # window from `before` min before the meal to `after` min after
     lo = meal_time - pd.Timedelta(minutes=before)
     hi = meal_time + pd.Timedelta(minutes=after)
