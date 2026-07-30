@@ -4,6 +4,8 @@ data/
 
 # generated
 features.csv
+figures/
+*.png
 
 # python
 __pycache__/
