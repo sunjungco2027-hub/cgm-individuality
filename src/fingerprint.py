@@ -7,7 +7,7 @@ from sklearn.metrics.pairwise import cosine_distances
 from sklearn.preprocessing import StandardScaler
 
 import covariates as cov
-from individuality import FEATURES
+from config import FEATURES
 
 
 def residual_matrix(path="features.csv"):

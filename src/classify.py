@@ -13,11 +13,7 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
 import labels as L
-
-FEATURES = [
-    "baseline", "peak", "height", "auc", "time_to_peak",
-    "up_slope", "down_slope", "time_to_return", "skew", "kurtosis",
-]
+from config import FEATURES
 
 
 def load(path="features.csv"):

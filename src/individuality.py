@@ -8,11 +8,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 
 import covariates as cov
-
-FEATURES = [
-    "baseline", "peak", "height", "auc", "time_to_peak",
-    "up_slope", "down_slope", "time_to_return", "skew", "kurtosis",
-]
+from config import FEATURES
 
 
 def icc(df, col, group="subject"):
