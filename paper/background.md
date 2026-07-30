@@ -49,3 +49,13 @@ by construction. The more informative question is whether the shape and timing o
 the excursion, and not only its height, add anything beyond the diagnostic
 thresholds. We keep this distinction in mind when we later separate amplitude
 features from shape and kinetic ones.
+
+Taken together, earlier work shows that glycemic responses are individual and
+that CGM features carry information about metabolic status, but it stops short in
+two places. It rarely tests whether the individual signal survives adjustment for
+demographics and laboratory covariates, so it stays unclear how much of the
+apparent individuality is just a stand-in for known differences. And it does not
+put a number on that individuality through re-identification. This paper takes up
+both gaps, and then asks a question that ties them together: are the features
+that make a person identifiable the same ones that make them classifiable as
+diabetic?
