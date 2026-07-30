@@ -38,3 +38,14 @@ countable: how often the correct person appears among the top guesses for a
 held-out meal. This framing has not, as far as we can tell, been applied to
 postprandial glucose curves, even though recognizing a person from a
 physiological signal is a familiar goal elsewhere.
+
+CGM-derived features have also been used to separate diabetic from non-diabetic
+individuals, which is consistent with the underlying physiology: impaired insulin
+secretion and insulin resistance push peaks higher and slow the return to
+baseline after eating (DeFronzo, 2004). One caution runs through this line of
+work. When the diabetes label is itself defined by fasting glucose or A1c,
+features that essentially re-measure glucose level will track that label almost
+by construction. The more informative question is whether the shape and timing of
+the excursion, and not only its height, add anything beyond the diagnostic
+thresholds. We keep this distinction in mind when we later separate amplitude
+features from shape and kinetic ones.
