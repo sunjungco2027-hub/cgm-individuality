@@ -21,11 +21,14 @@ CGMacros from PhysioNet. The data isn't in this repo — download it and drop th
 - `src/individuality.py` - icc per feature, raw and covariate-adjusted
 - `src/fingerprint.py` - cosine distance within vs between people, permutation test
 - `src/reid.py` - nearest-neighbour: guess whose meal a held-out one is
+- `src/labels.py` - diabetic / not from the lab thresholds
+- `src/classify.py` - predict diabetes (subject-grouped cv) + feature weights
 
 ```
 python build_features.py       # writes features.csv
 python src/individuality.py    # icc + covariate-adjusted icc per feature
 python src/reid.py             # re-identification accuracy
+python src/classify.py         # diabetes prediction + feature weights
 python tests/test_smoke.py     # quick sanity check
 ```
 
@@ -36,6 +39,10 @@ other than to other people's (within cosine ~0.91 vs between ~1.00, permutation
 p ~0.003), and a nearest-neighbour picks the right person for a held-out meal
 well above chance (top-5 ~0.4 vs 0.11 chance).
 
+The same features also predict diabetes reasonably well with subject-grouped
+cross-validation (auc ~0.87), and peak / baseline glucose are both the most
+person-specific and the most predictive.
+
 ## status
 
-next: use these features to predict diabetes and see which ones matter.
+cleaning up and writing this up.
