@@ -23,12 +23,13 @@ CGMacros from PhysioNet. The data isn't in this repo — download it and drop th
 - `src/reid.py` - nearest-neighbour: guess whose meal a held-out one is
 - `src/labels.py` - diabetic / not from the lab thresholds
 - `src/classify.py` - predict diabetes (subject-grouped cv) + feature weights
+- `src/plots.py` - the fingerprint histogram and feature-weight figures
+- `run_all.py` - run the whole pipeline and print a summary
 
 ```
-python build_features.py       # writes features.csv
-python src/individuality.py    # icc + covariate-adjusted icc per feature
-python src/reid.py             # re-identification accuracy
-python src/classify.py         # diabetes prediction + feature weights
+python run_all.py              # everything, with a summary
+python build_features.py       # just the feature table (features.csv)
+python src/plots.py            # figures into figures/
 python tests/test_smoke.py     # quick sanity check
 ```
 
