@@ -26,9 +26,10 @@ in its one-way form, computed from the between- and within-subject mean squares
 with a correction for the uneven number of meals per subject. A raw ICC near one
 means the feature is highly repeatable within a person and separates people well.
 
-A raw ICC can be inflated by nothing more than demographics: older or heavier
-people simply run higher. To remove that, we regress each feature on a set of
-covariates and recompute the ICC on the residuals. The covariates are the
+A raw ICC can partly reflect demographics rather than anything truly individual,
+since older or heavier people tend to run higher glucose and that shows up as
+between-subject variance. To separate the two, we regress each feature on a set
+of covariates and recompute the ICC on the residuals. The covariates are the
 fourteen numeric fields in the subject panel (age, body-mass index, weight,
 height, HbA1c, fasting glucose, insulin, and the full lipid profile) together
 with one-hot encodings of sex and self-identified ethnicity. What survives this
