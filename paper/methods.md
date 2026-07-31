@@ -46,3 +46,14 @@ mean within-subject distance to the mean between-subject distance and summarize
 the gap with Cohen's d. Because the pairs are not independent, we test the gap
 with a permutation test: we shuffle the subject labels 300 times and count how
 often a reshuffled gap is at least as large as the observed one.
+
+## Re-identification
+
+Distances tell us that people separate, but not by how much in practical terms.
+To put a number on it we set up a re-identification task. Each subject's meals
+are split, 80 percent into a gallery and 20 percent held out. A nearest-neighbour
+model with ten neighbours and a cosine metric is fit on the residualized gallery
+features, and we ask it to name the subject behind each held-out meal. We report
+top-1 accuracy, whether the correct person is the first guess, and top-5
+accuracy, whether the correct person is among the first five, each against the
+chance rates of 1/45 and 5/45.
