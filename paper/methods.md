@@ -70,3 +70,11 @@ person instead of the condition, so we evaluate with five-fold cross-validation
 grouped by subject, meaning every subject's meals fall entirely in either the
 training or the test fold. We read feature importance from the standardized
 logistic-regression coefficients.
+
+## Implementation
+
+All analyses use Python with scikit-learn (Pedregosa et al., 2011). Feature
+extraction, the ICC and fingerprinting analyses, the re-identification model, and
+the classifier are each a small script, and a single command runs the full
+pipeline and prints the numbers reported below. The CGMacros data is public but
+is not redistributed here.
