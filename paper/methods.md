@@ -34,3 +34,15 @@ height, HbA1c, fasting glucose, insulin, and the full lipid profile) together
 with one-hot encodings of sex and self-identified ethnicity. What survives this
 adjustment is individuality that age, body size, and blood chemistry do not
 explain.
+
+## Multivariate fingerprinting
+
+The ICC looks at one feature at a time. To ask whether the whole excursion
+profile clusters by person, we residualize all ten features against the same
+covariates, standardize them, and measure the cosine distance between every pair
+of meals. If meals carry an individual signature, two meals from the same person
+should sit closer together than two meals from different people. We compare the
+mean within-subject distance to the mean between-subject distance and summarize
+the gap with Cohen's d. Because the pairs are not independent, we test the gap
+with a permutation test: we shuffle the subject labels 300 times and count how
+often a reshuffled gap is at least as large as the observed one.
