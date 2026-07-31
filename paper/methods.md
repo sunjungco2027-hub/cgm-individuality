@@ -77,5 +77,5 @@ logistic-regression coefficients.
 All analyses use Python with scikit-learn (Pedregosa et al., 2011). Feature
 extraction, the ICC and fingerprinting analyses, the re-identification model, and
 the classifier are each a small script, and a single command runs the full
-pipeline and prints the numbers reported below. The CGMacros data is public but
+pipeline and prints the summary numbers. The CGMacros data is public but
 is not redistributed here.
