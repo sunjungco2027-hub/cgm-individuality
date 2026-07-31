@@ -57,3 +57,16 @@ features, and we ask it to name the subject behind each held-out meal. We report
 top-1 accuracy, whether the correct person is the first guess, and top-5
 accuracy, whether the correct person is among the first five, each against the
 chance rates of 1/45 and 5/45.
+
+## Diabetes classification
+
+Finally we test whether the same features predict diabetes. Subjects are labelled
+diabetic if their HbA1c is at least 6.5 percent or their fasting glucose is at
+least 126 mg/dL, following the ADA thresholds, and the label is carried down to
+every meal from that subject. A logistic-regression classifier is trained on the
+meal-level features after median imputation and standardization. Because meals
+from one person are correlated, a random split would let the model recognize the
+person instead of the condition, so we evaluate with five-fold cross-validation
+grouped by subject, meaning every subject's meals fall entirely in either the
+training or the test fold. We read feature importance from the standardized
+logistic-regression coefficients.
