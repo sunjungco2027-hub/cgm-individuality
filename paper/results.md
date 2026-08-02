@@ -39,5 +39,16 @@ identification-grade, which is expected for a small set of features, but it show
 that a meal response carries enough of a signature to point back at the person
 who produced it.
 
+## Diabetes classification
+
+The same features predict diabetes reasonably well. Under five-fold
+subject-grouped cross-validation the logistic-regression classifier reaches an
+area under the ROC curve of 0.87, so the features generalize to people the model
+has not seen rather than memorizing individuals. The standardized coefficients
+rank peak glucose first, then baseline glucose and the rise from baseline to
+peak. Amplitude, in short, does most of the work, with timing and shape features
+contributing little on their own.
+
+
 
 
