@@ -49,6 +49,17 @@ rank peak glucose first, then baseline glucose and the rise from baseline to
 peak. Amplitude, in short, does most of the work, with timing and shape features
 contributing little on their own.
 
+## The two results meet on the same features
+
+Peak and baseline glucose are the two features that keep the most individuality
+after covariate adjustment, and they are also the two that carry the most weight
+in the diabetes classifier. The trait that makes a person recognizable is, at
+least here, the same trait that flags their metabolic risk. That overlap is worth
+a caution as much as a claim: because the diabetes label is defined by glucose
+level, features that re-measure level are expected to predict it, so the honest
+open question is how much the shape of the excursion adds beyond height. We leave
+a direct test of that, holding out the amplitude features, for future work.
+
 
 
 
