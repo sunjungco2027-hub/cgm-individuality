@@ -18,3 +18,14 @@ the leaders: peak and baseline glucose keep adjusted ICCs of 0.24 and 0.20. In
 other words, part of what makes two people's meal responses differ in height is
 not explained by their age, body size, or blood chemistry.
 
+## Profiles cluster by person
+
+Looking at all ten features together tells the same story. After residualizing
+against the covariates, the mean cosine distance between two meals from the same
+person is 0.912, smaller than the 0.997 between meals from different people. The
+gap is a small effect by Cohen's conventions, d = 0.18, but the permutation test
+rules out chance, with p = 0.003 across 300 shuffles of the subject labels. So
+the individual signal is modest in size yet reliably present once demographics
+and labs are removed.
+
+
