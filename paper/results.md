@@ -28,4 +28,16 @@ rules out chance, with p = 0.003 across 300 shuffles of the subject labels. So
 the individual signal is modest in size yet reliably present once demographics
 and labs are removed.
 
+## Re-identification
+
+The re-identification task turns that signal into a concrete number. Given a
+held-out meal, the nearest-neighbour model names the correct person first 13
+percent of the time, against a chance rate of about 2 percent, and it places the
+correct person in its top five guesses 42 percent of the time, against a chance
+rate of 11 percent. Both are several times chance. The accuracy is far from
+identification-grade, which is expected for a small set of features, but it shows
+that a meal response carries enough of a signature to point back at the person
+who produced it.
+
+
 
