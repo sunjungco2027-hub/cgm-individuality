@@ -44,6 +44,11 @@ The same features also predict diabetes reasonably well with subject-grouped
 cross-validation (auc ~0.87), and peak / baseline glucose are both the most
 person-specific and the most predictive.
 
+## writeup
+
+Draft sections for the paper are under `paper/` (background, methods, results,
+and a `references.bib`).
+
 ## status
 
 cleaning up and writing this up.
