@@ -8,7 +8,7 @@ curve shape is person-specific vs. just noise from meal to meal.
 
 ## data
 
-CGMacros from PhysioNet. The data isn't in this repo — download it and drop the
+CGMacros from PhysioNet. The data isn't in this repo. Download it and drop the
 `CGMacros-XXX.csv` files (and `bio.csv`) into a `data/` folder.
 
 ## what's here
