@@ -9,3 +9,11 @@ simple question about those differences. Is the shape of a meal response
 individual to the person, in a way that ordinary explanations like age and body
 weight cannot account for, and if so, does that same individual signal say
 anything about their metabolic health?
+
+Earlier work has shown that people mount different responses to the same food and
+that continuous glucose patterns fall into distinct groups. What it has largely
+left untested is whether the individual part survives once demographics and
+laboratory values are removed, and it has not tried to measure that individuality
+the way biometrics does, by asking whether an unseen meal can be traced back to
+the right person. Framing the problem as re-identification is what lets us report
+individuality as an accuracy rather than an impression.
