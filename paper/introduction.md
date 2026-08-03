@@ -17,3 +17,11 @@ laboratory values are removed, and it has not tried to measure that individualit
 the way biometrics does, by asking whether an unseen meal can be traced back to
 the right person. Framing the problem as re-identification is what lets us report
 individuality as an accuracy rather than an impression.
+
+This paper makes two contributions. First, using covariate-adjusted repeatability,
+multivariate distance, and a re-identification test on held-out meals, we show
+that postprandial excursion profiles carry an individual signal that demographics
+and labs do not explain. Second, we show that the same features that make a
+person identifiable also predict diabetes under subject-grouped cross-validation,
+so individuality and clinical signal turn out to live in the same features rather
+than in separate ones.
