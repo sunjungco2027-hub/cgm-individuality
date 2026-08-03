@@ -12,7 +12,7 @@ anything about their metabolic health?
 
 Earlier work has shown that people mount different responses to the same food and
 that continuous glucose patterns fall into distinct groups. What it has largely
-left untested is whether the individual part survives once demographics and
+left untested is whether the individual component survives once demographics and
 laboratory values are removed, and it has not tried to measure that individuality
 the way biometrics does, by asking whether an unseen meal can be traced back to
 the right person. Framing the problem as re-identification is what lets us report
