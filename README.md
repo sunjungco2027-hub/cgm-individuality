@@ -47,7 +47,7 @@ person-specific and the most predictive.
 ## writeup
 
 Draft sections for the paper are under `paper/` (abstract, introduction,
-background, methods, results, and a `references.bib`).
+background, methods, results, discussion, and a `references.bib`).
 
 ## status
 
