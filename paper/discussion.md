@@ -28,3 +28,13 @@ evidence of a signature rather than as a working identifier. Finally, the ten
 features are a compact summary, and meal composition, time of day, and overlap
 between nearby meals are not modeled, all of which could sharpen or blur the
 individual signal.
+
+## Conclusion
+
+Postprandial glucose responses carry an individual signature that is not just a
+restatement of a person's demographics or labs, and that same signature aligns
+with their metabolic risk. The effect is small and the cohort is limited, but it
+is consistent across a repeatability measure, a distance-based test, and a
+re-identification task, and it survives covariate adjustment. Larger and more
+diverse data, richer features, and the amplitude-free test noted above would show
+how much further the idea holds.
