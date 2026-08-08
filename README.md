@@ -46,8 +46,8 @@ person-specific and the most predictive.
 
 ## writeup
 
-Draft sections for the paper are under `paper/` (abstract, introduction,
-background, methods, results, discussion, and a `references.bib`).
+The manuscript draft is `paper/paper.md`, with the citations in
+`paper/references.bib`.
 
 ## status
 
