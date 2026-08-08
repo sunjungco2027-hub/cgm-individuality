@@ -191,3 +191,110 @@ extraction, the ICC and fingerprinting analyses, the re-identification model, an
 the classifier are each a small script, and a single command runs the full
 pipeline and prints the summary numbers. The CGMacros data is public but
 is not redistributed here.
+
+## Results
+
+## Cohort
+
+The pipeline extracts 1,657 meal excursions from 45 subjects. Applying the ADA
+thresholds at the subject level labels 18 of the 45 as diabetic, so about 40
+percent of the cohort, and every meal inherits its subject's label. The
+classification task below is therefore moderately imbalanced but not severely so.
+
+## Individuality of single features
+
+The amplitude features are the most person-specific. Peak glucose has the highest
+raw ICC at 0.65 and baseline glucose is next at 0.56, meaning that most of the
+variance in these features is between people rather than within a person across
+meals. Timing and distribution-shape features sit much lower, mostly under 0.15.
+Adjusting for the covariates shrinks every ICC, as expected, but does not erase
+the leaders: peak and baseline glucose keep adjusted ICCs of 0.24 and 0.20. In
+other words, part of what makes two people's meal responses differ in height is
+not explained by their age, body size, or blood chemistry.
+
+## Profiles cluster by person
+
+Looking at all ten features together tells the same story. After residualizing
+against the covariates, the mean cosine distance between two meals from the same
+person is 0.912, smaller than the 0.997 between meals from different people. The
+gap is a small effect by Cohen's conventions, d = 0.18, but the permutation test
+rules out chance, with p = 0.003 across 300 shuffles of the subject labels. So
+the individual signal is modest in size yet reliably present once demographics
+and labs are removed.
+
+## Re-identification
+
+The re-identification task turns that signal into a concrete number. Given a
+held-out meal, the nearest-neighbour model names the correct person first 13
+percent of the time, against a chance rate of about 2 percent, and it places the
+correct person in its top five guesses 42 percent of the time, against a chance
+rate of 11 percent. Both are several times chance. The accuracy is far from
+identification-grade, which is expected for a small set of features, but it shows
+that a meal response carries enough of a signature to point back at the person
+who produced it.
+
+## Diabetes classification
+
+The same features predict diabetes reasonably well. Under five-fold
+subject-grouped cross-validation the logistic-regression classifier reaches an
+area under the ROC curve of 0.87, so the features generalize to people the model
+has not seen rather than memorizing individuals. The standardized coefficients
+rank peak glucose first, then baseline glucose and the rise from baseline to
+peak. The amplitude features do most of the work, with timing and shape features
+contributing little on their own.
+
+## The two results meet on the same features
+
+Peak and baseline glucose are the two features that keep the most individuality
+after covariate adjustment, and they are also the two that carry the most weight
+in the diabetes classifier. The trait that makes a person recognizable is, at
+least here, the same trait that flags their metabolic risk. That overlap is worth
+a caution as much as a claim: because the diabetes label is defined by glucose
+level, features that re-measure level are expected to predict it, so the honest
+open question is how much the shape of the excursion adds beyond height. We leave
+a direct test of that, holding out the amplitude features, for future work.
+
+
+
+
+
+## Discussion
+
+Two findings sit next to each other here. The shape of a meal response holds an
+individual component that survives adjustment for demographics and fasting labs,
+and the features that carry that component are the same ones that predict
+diabetes. The most likely reading is that amplitude features such as peak and
+baseline glucose reflect slower-moving traits of a person's metabolism, for
+instance insulin secretion and clearance, that a one-time demographic and lab
+panel does not fully capture. Latent factors of that kind, and possibly gastric
+emptying or gut microbiome, would show up as stable between-person differences in
+how high glucose climbs and how it settles, which is what the ICC and the
+fingerprint analyses pick up. For the growing number of people who already wear a
+sensor, this points toward a passive form of metabolic characterization that
+needs no extra visit.
+
+## Limitations
+
+The study is small. Forty-five subjects and a single dataset limit how far the
+numbers generalize, and the cohort leans toward one population, so the same
+analysis on a broader group could look different. The most important caveat is
+the label itself. Diabetes here is defined by fasting glucose and HbA1c, and the
+two strongest predictors re-measure glucose level, so part of the classification
+result is expected almost by definition. We flag the shape and kinetic features as
+the more interesting question and leave a clean test, holding out the amplitude
+features, for later. The re-identification accuracy is well above chance but
+modest, and it moves a little with the random split, so it should be read as
+evidence of a signature rather than as a working identifier. Finally, the ten
+features are a compact summary, and meal composition, time of day, and overlap
+between nearby meals are not modeled, all of which could sharpen or blur the
+individual signal.
+
+## Conclusion
+
+Postprandial glucose responses carry an individual signature that is not just a
+restatement of a person's demographics or labs, and that same signature aligns
+with their metabolic risk. The effect is small and the cohort is limited, but it
+is consistent across a repeatability measure, a distance-based test, and a
+re-identification task, and it survives covariate adjustment. Larger and more
+diverse data, richer features, and the amplitude-free test noted above would show
+how much further the idea holds.
