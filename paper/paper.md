@@ -112,7 +112,7 @@ diabetic?
 
 ## Methods
 
-## Data and feature extraction
+### Data and feature extraction
 
 We use the public CGMacros dataset, which pairs minute-level CGM traces with meal
 logs and a per-subject panel of demographics and fasting labs. A meal is any
@@ -130,7 +130,7 @@ and down-slope), and two describe the distribution of glucose in the window
 (skewness and kurtosis). The result is one row per meal, which the later analyses
 treat as a repeated measurement of the person who ate it.
 
-## Covariate-adjusted individuality
+### Covariate-adjusted individuality
 
 For each feature we first ask how much of its variance is between people rather
 than within a person across meals. We use the intraclass correlation coefficient
@@ -148,7 +148,7 @@ with one-hot encodings of sex and self-identified ethnicity. What survives this
 adjustment is individuality that age, body size, and blood chemistry do not
 explain.
 
-## Multivariate fingerprinting
+### Multivariate fingerprinting
 
 The ICC looks at one feature at a time. To ask whether the whole excursion
 profile clusters by person, we residualize all ten features against the same
@@ -160,7 +160,7 @@ the gap with Cohen's d. Because the pairs are not independent, we test the gap
 with a permutation test: we shuffle the subject labels 300 times and count how
 often a reshuffled gap is at least as large as the observed one.
 
-## Re-identification
+### Re-identification
 
 Distances tell us that people separate, but not by how much in practical terms.
 To put a number on it we set up a re-identification task. Each subject's meals
@@ -171,7 +171,7 @@ top-1 accuracy, whether the correct person is the first guess, and top-5
 accuracy, whether the correct person is among the first five, each against the
 chance rates of 1/45 and 5/45.
 
-## Diabetes classification
+### Diabetes classification
 
 Finally we test whether the same features predict diabetes. Subjects are labelled
 diabetic if their HbA1c is at least 6.5 percent or their fasting glucose is at
@@ -184,7 +184,7 @@ grouped by subject, meaning every subject's meals fall entirely in either the
 training or the test fold. We read feature importance from the standardized
 logistic-regression coefficients.
 
-## Implementation
+### Implementation
 
 All analyses use Python with scikit-learn (Pedregosa et al., 2011). Feature
 extraction, the ICC and fingerprinting analyses, the re-identification model, and
@@ -194,14 +194,14 @@ is not redistributed here.
 
 ## Results
 
-## Cohort
+### Cohort
 
 The pipeline extracts 1,657 meal excursions from 45 subjects. Applying the ADA
 thresholds at the subject level labels 18 of the 45 as diabetic, so about 40
 percent of the cohort, and every meal inherits its subject's label. The
 classification task below is therefore moderately imbalanced but not severely so.
 
-## Individuality of single features
+### Individuality of single features
 
 The amplitude features are the most person-specific. Peak glucose has the highest
 raw ICC at 0.65 and baseline glucose is next at 0.56, meaning that most of the
@@ -212,7 +212,7 @@ the leaders: peak and baseline glucose keep adjusted ICCs of 0.24 and 0.20. In
 other words, part of what makes two people's meal responses differ in height is
 not explained by their age, body size, or blood chemistry.
 
-## Profiles cluster by person
+### Profiles cluster by person
 
 Looking at all ten features together tells the same story. After residualizing
 against the covariates, the mean cosine distance between two meals from the same
@@ -222,7 +222,7 @@ rules out chance, with p = 0.003 across 300 shuffles of the subject labels. So
 the individual signal is modest in size yet reliably present once demographics
 and labs are removed.
 
-## Re-identification
+### Re-identification
 
 The re-identification task turns that signal into a concrete number. Given a
 held-out meal, the nearest-neighbour model names the correct person first 13
@@ -233,7 +233,7 @@ identification-grade, which is expected for a small set of features, but it show
 that a meal response carries enough of a signature to point back at the person
 who produced it.
 
-## Diabetes classification
+### Diabetes classification
 
 The same features predict diabetes reasonably well. Under five-fold
 subject-grouped cross-validation the logistic-regression classifier reaches an
@@ -243,7 +243,7 @@ rank peak glucose first, then baseline glucose and the rise from baseline to
 peak. The amplitude features do most of the work, with timing and shape features
 contributing little on their own.
 
-## The two results meet on the same features
+### The two results meet on the same features
 
 Peak and baseline glucose are the two features that keep the most individuality
 after covariate adjustment, and they are also the two that carry the most weight
@@ -273,7 +273,7 @@ fingerprint analyses pick up. For the growing number of people who already wear 
 sensor, this points toward a passive form of metabolic characterization that
 needs no extra visit.
 
-## Limitations
+### Limitations
 
 The study is small. Forty-five subjects and a single dataset limit how far the
 numbers generalize, and the cohort leans toward one population, so the same
@@ -289,7 +289,7 @@ features are a compact summary, and meal composition, time of day, and overlap
 between nearby meals are not modeled, all of which could sharpen or blur the
 individual signal.
 
-## Conclusion
+### Conclusion
 
 Postprandial glucose responses carry an individual signature that is not just a
 restatement of a person's demographics or labs, and that same signature aligns
@@ -298,3 +298,4 @@ is consistent across a repeatability measure, a distance-based test, and a
 re-identification task, and it survives covariate adjustment. Larger and more
 diverse data, richer features, and the amplitude-free test noted above would show
 how much further the idea holds.
+
