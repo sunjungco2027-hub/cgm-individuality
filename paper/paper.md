@@ -299,3 +299,22 @@ re-identification task, and it survives covariate adjustment. Larger and more
 diverse data, richer features, and the amplitude-free test noted above would show
 how much further the idea holds.
 
+## References
+
+Battelino, T., Danne, T., Bergenstal, R. M., et al. (2019). Clinical targets for continuous glucose monitoring data interpretation. Diabetes Care, 42(8), 1593-1603.
+
+Bergenstal, R. M., Beck, R. W., Close, K. L., et al. (2018). Glucose management indicator (GMI): a new term for estimating A1C from continuous glucose monitoring. Diabetes Care, 41(11), 2275-2280.
+
+Ceriello, A., & Colagiuri, S. (2008). International Diabetes Federation guideline for management of postmeal glucose. Diabetic Medicine, 25(10), 1151-1156.
+
+Danne, T., Nimri, R., Battelino, T., et al. (2017). International consensus on use of continuous glucose monitoring. Diabetes Care, 40(12), 1631-1640.
+
+DeFronzo, R. A. (2004). Pathogenesis of type 2 diabetes mellitus. Medical Clinics of North America, 88(4), 787-835.
+
+Hall, H., Perelman, D., Breschi, A., et al. (2018). Glucotypes reveal new patterns of glucose dysregulation. PLoS Biology, 16(7), e2005143.
+
+Monnier, L., Colette, C., & Owens, D. R. (2008). Glycemic variability: the third component of the dysglycemia in diabetes. Journal of Diabetes Science and Technology, 2(6), 1094-1100.
+
+Pedregosa, F., Varoquaux, G., Gramfort, A., et al. (2011). Scikit-learn: machine learning in Python. Journal of Machine Learning Research, 12, 2825-2830.
+
+Zeevi, D., Korem, T., Zmora, N., et al. (2015). Personalized nutrition by prediction of glycemic responses. Cell, 163(5), 1079-1094.
