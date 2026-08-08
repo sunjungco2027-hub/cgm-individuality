@@ -47,3 +47,147 @@ and labs do not explain. Second, we show that the same features that make a
 person identifiable also predict diabetes under subject-grouped cross-validation,
 so individuality and clinical signal turn out to live in the same features rather
 than in separate ones.
+
+## Background and Related Work
+
+Continuous glucose monitoring (CGM) records interstitial glucose every few
+minutes and has changed how day-to-day metabolism is observed (Danne et al.,
+2017). In routine use, though, most of that signal is compressed into a handful
+of static summaries. Time in range and the glucose management indicator report
+how often glucose sits inside a target band or estimate an A1c-like average
+(Battelino et al., 2019; Bergenstal et al., 2018), and variability indices add a
+measure of spread (Monnier et al., 2008). These numbers are useful for
+management, but they mostly describe where glucose is rather than how it moves.
+A meal response has a shape: a rise, a peak, and a return toward baseline, and
+that shape is largely lost once a day is reduced to an average. Clinical
+guidelines have argued for years that the postprandial period itself carries
+information about metabolic health (Ceriello and Colagiuri, 2008), which suggests
+the excursion is worth modeling on its own terms.
+
+That the same meal can produce very different responses in different people is by
+now well documented. Zeevi et al. (2015) found that postprandial responses to
+identical foods vary widely across individuals and can be predicted from personal
+and microbiome features, which motivated personalized rather than uniform dietary
+advice. Hall et al. (2018) took the idea further, clustering CGM traces into
+distinct "glucotypes" that separated people by how variable their glucose was,
+including people without a diabetes diagnosis. Both results establish that
+individual differences are real. What they leave open is whether those
+differences are stable and specific enough to act as a signature of the person
+once the obvious explanations, such as age, body mass, and blood chemistry, are
+accounted for.
+
+Measuring how much of a trait belongs to the person is an old problem. The
+intraclass correlation coefficient (ICC) splits the variance of repeated
+measurements into a between-subject part and a within-subject part, so a high ICC
+means a feature is consistent within a person yet differs across people. A
+related but stricter view comes from biometrics, where the question is not only
+whether people differ on average but whether an unseen sample can be matched back
+to the right individual. Posing CGM meal responses this way, as a
+re-identification task, turns a loose notion of individuality into a measurable
+quantity: how often the correct person appears among the top guesses for a
+held-out meal. To our knowledge this framing has not been applied to
+postprandial glucose curves, even though recognizing a person from a
+physiological signal is a familiar goal elsewhere.
+
+CGM-derived features have also been used to separate diabetic from non-diabetic
+individuals, which is consistent with the underlying physiology: impaired insulin
+secretion and insulin resistance push peaks higher and slow the return to
+baseline after eating (DeFronzo, 2004). One caution runs through this line of
+work. When the diabetes label is itself defined by fasting glucose or A1c,
+features that essentially re-measure glucose level will track that label almost
+by construction. The more informative question is whether the shape and timing of
+the excursion, and not only its height, add anything beyond the diagnostic
+thresholds. We keep this distinction in mind when we later separate amplitude
+features from shape and kinetic ones.
+
+Taken together, earlier work shows that glycemic responses are individual and
+that CGM features carry information about metabolic status, but it stops short in
+two places. It rarely tests whether the individual signal survives adjustment for
+demographics and laboratory covariates, so it stays unclear how much of the
+apparent individuality is just a stand-in for known differences. And it does not
+put a number on that individuality through re-identification. This paper takes up
+both gaps, and then asks a question that ties them together: are the features
+that make a person identifiable the same ones that make them classifiable as
+diabetic?
+
+## Methods
+
+## Data and feature extraction
+
+We use the public CGMacros dataset, which pairs minute-level CGM traces with meal
+logs and a per-subject panel of demographics and fasting labs. A meal is any
+logged event with positive caloric intake. Around each meal we take the window
+from 30 minutes before to 240 minutes after and resample it onto a one-minute
+grid relative to the meal, so every excursion is described on the same time axis.
+After dropping windows with too little coverage, this yields 1,657 meal
+excursions from 45 subjects.
+
+From each window we compute ten features that summarize the curve rather than a
+single average. Four are amplitude features (pre-meal baseline, peak, the rise
+from baseline to peak, and the area above baseline), two are timing features
+(time to peak and time back to baseline), two are kinetic (the average up-slope
+and down-slope), and two describe the distribution of glucose in the window
+(skewness and kurtosis). The result is one row per meal, which the later analyses
+treat as a repeated measurement of the person who ate it.
+
+## Covariate-adjusted individuality
+
+For each feature we first ask how much of its variance is between people rather
+than within a person across meals. We use the intraclass correlation coefficient
+in its one-way form, computed from the between- and within-subject mean squares
+with a correction for the uneven number of meals per subject. A raw ICC near one
+means the feature is highly repeatable within a person and separates people well.
+
+A raw ICC can partly reflect demographics rather than anything truly individual,
+since older or heavier people tend to run higher glucose and that shows up as
+between-subject variance. To separate the two, we regress each feature on a set
+of covariates and recompute the ICC on the residuals. The covariates are the
+fourteen numeric fields in the subject panel (age, body-mass index, weight,
+height, HbA1c, fasting glucose, insulin, and the full lipid profile) together
+with one-hot encodings of sex and self-identified ethnicity. What survives this
+adjustment is individuality that age, body size, and blood chemistry do not
+explain.
+
+## Multivariate fingerprinting
+
+The ICC looks at one feature at a time. To ask whether the whole excursion
+profile clusters by person, we residualize all ten features against the same
+covariates, standardize them, and measure the cosine distance between every pair
+of meals. If meals carry an individual signature, two meals from the same person
+should sit closer together than two meals from different people. We compare the
+mean within-subject distance to the mean between-subject distance and summarize
+the gap with Cohen's d. Because the pairs are not independent, we test the gap
+with a permutation test: we shuffle the subject labels 300 times and count how
+often a reshuffled gap is at least as large as the observed one.
+
+## Re-identification
+
+Distances tell us that people separate, but not by how much in practical terms.
+To put a number on it we set up a re-identification task. Each subject's meals
+are split, 80 percent into a gallery and 20 percent held out. A nearest-neighbour
+model with ten neighbours and a cosine metric is fit on the residualized gallery
+features, and we ask it to name the subject behind each held-out meal. We report
+top-1 accuracy, whether the correct person is the first guess, and top-5
+accuracy, whether the correct person is among the first five, each against the
+chance rates of 1/45 and 5/45.
+
+## Diabetes classification
+
+Finally we test whether the same features predict diabetes. Subjects are labelled
+diabetic if their HbA1c is at least 6.5 percent or their fasting glucose is at
+least 126 mg/dL, following the ADA thresholds, and the label is carried down to
+every meal from that subject. A logistic-regression classifier is trained on the
+meal-level features after median imputation and standardization. Because meals
+from one person are correlated, a random split would let the model recognize the
+person instead of the condition, so we evaluate with five-fold cross-validation
+grouped by subject, meaning every subject's meals fall entirely in either the
+training or the test fold. We read feature importance from the standardized
+logistic-regression coefficients.
+
+## Implementation
+
+All analyses use Python with scikit-learn (Pedregosa et al., 2011). Feature
+extraction, the ICC and fingerprinting analyses, the re-identification model, and
+the classifier are each a small script, and a single command runs the full
+pipeline and prints the summary numbers. The CGMacros data is public but
+is not redistributed here.
