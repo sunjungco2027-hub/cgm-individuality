@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it."
+title: cgm-individuality
+abstract: >-
+  Is the shape of a person's post-meal glucose response individual to them?
+  Feature extraction and analysis of CGM postprandial excursions on the public
+  CGMacros dataset.
+authors:
+  - family-names: Jung
+    given-names: Sun
+license: MIT
+repository-code: "https://github.com/sunjungco2027-hub/cgm-individuality"
