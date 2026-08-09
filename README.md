@@ -51,7 +51,7 @@ and the citations in `paper/references.bib`.
 
 ## license
 
-MIT, see `LICENSE`.
+MIT, see `LICENSE`. Citation metadata is in `CITATION.cff`.
 
 ## status
 
