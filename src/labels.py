@@ -5,7 +5,7 @@ import load_data as ld
 from config import A1C_CUTOFF, FASTING_GLU_CUTOFF
 
 
-def diabetes_labels(data_dir=ld.DATA_DIR):
+def diabetes_labels(data_dir: str = ld.DATA_DIR) -> dict[int, int]:
     b = ld.load_bio(data_dir)
     a1c = pd.to_numeric(b["A1c PDL (Lab)"], errors="coerce")
     fg = pd.to_numeric(b["Fasting GLU - PDL (Lab)"], errors="coerce")
