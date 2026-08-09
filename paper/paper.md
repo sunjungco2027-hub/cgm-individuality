@@ -4,6 +4,8 @@ Sun Jung
 
 International School Ho Chi Minh City (High School Student)
 
+*Index terms:* continuous glucose monitoring, individuality, re-identification, intraclass correlation, diabetes classification.
+
 ## Abstract
 
 Continuous glucose monitors record how a person responds to every meal, but it is
