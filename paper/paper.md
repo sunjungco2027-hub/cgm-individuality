@@ -224,7 +224,7 @@ rules out chance, with p = 0.003 across 300 shuffles of the subject labels. So
 the individual signal is modest in size yet reliably present once demographics
 and labs are removed (Figure 1).
 
-![Figure 1](figures/fig1_distance.png)
+![Figure 1](figures/fig1-distance.png)
 
 *Figure 1. Cosine distances between meals in the residualized feature space.
 Within-subject pairs sit closer than between-subject pairs.*
@@ -250,7 +250,7 @@ rank peak glucose first, then baseline glucose and the rise from baseline to
 peak. The amplitude features do most of the work, with timing and shape features
 contributing little on their own (Figure 2).
 
-![Figure 2](figures/fig2_importance.png)
+![Figure 2](figures/fig2-importance.png)
 
 *Figure 2. Standardized logistic-regression coefficients. Peak and baseline
 glucose carry the most weight.*
