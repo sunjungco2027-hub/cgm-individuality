@@ -10,7 +10,7 @@ import covariates as cov
 from config import FEATURES
 
 
-def residual_matrix(path="features.csv"):
+def residual_matrix(path: str = "features.csv") -> tuple[np.ndarray, np.ndarray]:
     """residualize every feature against the covariates, then z-score."""
     df = pd.read_csv(path)
     cmat = cov.covariate_matrix()
