@@ -47,7 +47,9 @@ person-specific and the most predictive.
 ## writeup
 
 The manuscript draft is `paper/paper.md`, with the figures in `paper/figures/`
-and the citations in `paper/references.bib`.
+and the citations in `paper/references.bib`. A two-column IEEE version is in
+`paper/paper.tex` (compile on Overleaf), and `paper/build_docx.sh` makes the
+Word version `paper/paper.docx`.
 
 ## license
 
