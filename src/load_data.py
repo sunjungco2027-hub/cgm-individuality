@@ -7,13 +7,13 @@ import pandas as pd
 DATA_DIR = "data"
 
 
-def subject_files(data_dir=DATA_DIR):
+def subject_files(data_dir: str = DATA_DIR) -> list[str]:
     """Return the list of per-subject CGMacros csv files."""
     files = glob.glob(os.path.join(data_dir, "**", "CGMacros-*.csv"), recursive=True)
     return sorted(f for f in files if "Dictionary" not in f)
 
 
-def load_subject(path):
+def load_subject(path: str) -> pd.DataFrame:
     """Read one subject file, parse the timestamp, sort by time."""
     df = pd.read_csv(path)
     df.columns = [c.strip() for c in df.columns]
@@ -22,13 +22,13 @@ def load_subject(path):
     return df
 
 
-def meal_events(df):
+def meal_events(df: pd.DataFrame) -> pd.DataFrame:
     """Rows that mark a meal (the meal-calorie column is > 0)."""
     cal = pd.to_numeric(df.get("Calories"), errors="coerce").fillna(0)
     return df[cal > 0]
 
 
-def load_bio(data_dir=DATA_DIR):
+def load_bio(data_dir: str = DATA_DIR) -> pd.DataFrame:
     """Per-subject demographics and lab values (bio.csv)."""
     path = glob.glob(os.path.join(data_dir, "**", "bio.csv"), recursive=True)[0]
     b = pd.read_csv(path)
