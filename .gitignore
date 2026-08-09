@@ -9,6 +9,16 @@ features.csv
 # but keep the figures used in the paper
 !paper/figures/*.png
 
+# latex build artifacts
+*.aux
+*.log
+*.out
+*.bbl
+*.blg
+*.synctex.gz
+*.fdb_latexmk
+*.fls
+
 # python
 __pycache__/
 *.pyc
