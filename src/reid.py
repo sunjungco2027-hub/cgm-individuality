@@ -9,7 +9,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from fingerprint import residual_matrix
 
 
-def split(subjects, frac=0.8, seed=0):
+def split(subjects: np.ndarray, frac: float = 0.8, seed: int = 0) -> tuple[np.ndarray, np.ndarray]:
     rng = np.random.default_rng(seed)
     train, test = [], []
     for s in np.unique(subjects):
