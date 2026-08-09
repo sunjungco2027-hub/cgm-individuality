@@ -222,7 +222,12 @@ person is 0.912, smaller than the 0.997 between meals from different people. The
 gap is a small effect by Cohen's conventions, d = 0.18, but the permutation test
 rules out chance, with p = 0.003 across 300 shuffles of the subject labels. So
 the individual signal is modest in size yet reliably present once demographics
-and labs are removed.
+and labs are removed (Figure 1).
+
+![Figure 1](figures/fig1_distance.png)
+
+*Figure 1. Cosine distances between meals in the residualized feature space.
+Within-subject pairs sit closer than between-subject pairs.*
 
 ### Re-identification
 
@@ -243,7 +248,12 @@ area under the ROC curve of 0.87, so the features generalize to people the model
 has not seen rather than memorizing individuals. The standardized coefficients
 rank peak glucose first, then baseline glucose and the rise from baseline to
 peak. The amplitude features do most of the work, with timing and shape features
-contributing little on their own.
+contributing little on their own (Figure 2).
+
+![Figure 2](figures/fig2_importance.png)
+
+*Figure 2. Standardized logistic-regression coefficients. Peak and baseline
+glucose carry the most weight.*
 
 ### The two results meet on the same features
 
