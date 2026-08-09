@@ -1,5 +1,6 @@
 # data (download separately from PhysioNet, don't commit)
-data/
+data/*
+!data/README.md
 *.zip
 
 # generated
