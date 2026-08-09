@@ -1,60 +1,52 @@
 # cgm-individuality
 
-Is the *shape* of someone's glucose response after a meal individual to them?
+**Does a person's post-meal glucose curve carry a signature of who they are?**
+This repository extracts shape features from continuous glucose monitor (CGM)
+excursions and asks whether that signature survives adjustment for age and lab
+values, whether it can re-identify a subject, and whether it predicts diabetes.
 
-I'm using the public CGMacros dataset (continuous glucose monitor readings +
-meal logs) to look at postprandial glucose curves and check how much of the
-curve shape is person-specific vs. just noise from meal to meal.
+## Results
 
-## data
+| Analysis | Metric | Value |
+|---|---|---|
+| Individuality (covariate-adjusted ICC) | peak / baseline glucose | 0.24 / 0.20 |
+| Fingerprint (cosine distance) | within vs between subject | 0.91 vs 1.00, permutation p = 0.003 |
+| Re-identification | top-1 / top-5 (chance) | 0.13 / 0.42 (0.02 / 0.11) |
+| Diabetes classification | subject-grouped CV AUC | 0.87 |
 
-CGMacros from PhysioNet. The data isn't in this repo. Download it and drop the
-`CGMacros-XXX.csv` files (and `bio.csv`) into a `data/` folder.
+Peak and baseline glucose turn out to be both the most person-specific features
+and the strongest diabetes predictors.
 
-## what's here
+## Repository layout
 
-- `src/load_data.py` - read the CGMacros files, find meal events
-- `src/windows.py` - pull the -30 to +240 min window around a meal
-- `src/features.py` - baseline, peak, height, auc, timing, slopes, shape
-- `build_features.py` - run everything into one row-per-meal table
-- `src/covariates.py` - per-subject demographics + labs to adjust against
-- `src/individuality.py` - icc per feature, raw and covariate-adjusted
-- `src/fingerprint.py` - cosine distance within vs between people, permutation test
-- `src/reid.py` - nearest-neighbour: guess whose meal a held-out one is
-- `src/labels.py` - diabetic / not from the lab thresholds
-- `src/classify.py` - predict diabetes (subject-grouped cv) + feature weights
-- `src/plots.py` - the fingerprint histogram and feature-weight figures
-- `run_all.py` - run the whole pipeline and print a summary
+| Path | Contents |
+|---|---|
+| `src/` | feature extraction, ICC, fingerprinting, re-identification, classifier, plots |
+| `build_features.py` / `run_all.py` | build the per-meal table / run the whole pipeline |
+| `tests/` | end-to-end sanity check |
+| `paper/` | manuscript (`paper.md`, IEEE `paper.tex`, `paper.docx`) and figures |
 
+## Getting started
+
+```bash
+pip install -r requirements.txt
+python run_all.py
 ```
-python run_all.py              # everything, with a summary
-python build_features.py       # just the feature table (features.csv)
-python src/plots.py            # figures into figures/
-python tests/test_smoke.py     # quick sanity check
-```
 
-Baseline and peak glucose stay the most person-specific even after adjusting for
-age, sex, bmi, ethnicity and the lab panel (adjusted icc ~0.20-0.24). After
-removing the covariates, meals from the same person are still closer to each
-other than to other people's (within cosine ~0.91 vs between ~1.00, permutation
-p ~0.003), and a nearest-neighbour picks the right person for a held-out meal
-well above chance (top-5 ~0.4 vs 0.11 chance).
+`run_all.py` reports the individuality, fingerprint, re-identification, and
+classification results in a single pass.
 
-The same features also predict diabetes reasonably well with subject-grouped
-cross-validation (auc ~0.87), and peak / baseline glucose are both the most
-person-specific and the most predictive.
+## Data
 
-## writeup
+The analysis is built on the CGMacros dataset from PhysioNet, which is not
+redistributed here. Put the per-subject `CGMacros-*.csv` files and `bio.csv`
+under `data/` before running anything.
 
-The manuscript draft is `paper/paper.md`, with the figures in `paper/figures/`
-and the citations in `paper/references.bib`. A two-column IEEE version is in
-`paper/paper.tex` (compile on Overleaf), and `paper/build_docx.sh` makes the
-Word version `paper/paper.docx`.
+## Paper
 
-## license
+The write-up lives in `paper/`: a markdown draft (`paper.md`), a two-column IEEE
+version (`paper.tex`, compiles on Overleaf), and a Word export (`paper.docx`).
 
-MIT, see `LICENSE`. Citation metadata is in `CITATION.cff`.
+## Citing
 
-## status
-
-cleaning up and writing this up.
+Citation metadata is in `CITATION.cff`. Released under the MIT License (`LICENSE`).
