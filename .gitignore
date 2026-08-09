@@ -4,8 +4,10 @@ data/
 
 # generated
 features.csv
-figures/
+/figures/
 *.png
+# but keep the figures used in the paper
+!paper/figures/*.png
 
 # python
 __pycache__/
