@@ -7,4 +7,8 @@ if ! command -v pandoc >/dev/null 2>&1; then
   exit 1
 fi
 pandoc paper.md -o paper.docx --resource-path=. --metadata lang=en-US
+if [ ! -s paper.docx ]; then
+  echo "build failed: paper.docx is empty" >&2
+  exit 1
+fi
 echo "wrote paper.docx"
