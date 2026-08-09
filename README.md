@@ -46,8 +46,12 @@ person-specific and the most predictive.
 
 ## writeup
 
-The manuscript draft is `paper/paper.md`, with the citations in
-`paper/references.bib`.
+The manuscript draft is `paper/paper.md`, with the figures in `paper/figures/`
+and the citations in `paper/references.bib`.
+
+## license
+
+MIT, see `LICENSE`.
 
 ## status
 
