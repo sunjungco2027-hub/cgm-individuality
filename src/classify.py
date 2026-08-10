@@ -16,13 +16,13 @@ import labels as L
 from config import FEATURES
 
 
-def load(path="features.csv"):
+def load(path: str = "features.csv") -> pd.DataFrame:
     df = pd.read_csv(path)
     df["y"] = df["subject"].map(L.diabetes_labels())
     return df.dropna(subset=["y"])
 
 
-def run(path="features.csv"):
+def run(path: str = "features.csv") -> None:
     df = load(path)
     X = df[FEATURES].values
     y = df["y"].astype(int).values
