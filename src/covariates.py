@@ -11,7 +11,7 @@ NUMERIC = [
 CATEGORICAL = ["Gender", "Self-identify"]
 
 
-def covariate_matrix(data_dir=ld.DATA_DIR):
+def covariate_matrix(data_dir: str = ld.DATA_DIR) -> pd.DataFrame:
     b = ld.load_bio(data_dir)
     m = b[["subject"]].copy()
     for c in NUMERIC:
