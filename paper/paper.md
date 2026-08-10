@@ -119,8 +119,8 @@ diabetic?
 We use the public CGMacros dataset, which pairs minute-level CGM traces with meal
 logs and a per-subject panel of demographics and fasting labs. A meal is any
 logged event with positive caloric intake. Around each meal we take the window
-from 30 minutes before to 240 minutes after and resample it onto a one-minute
-grid relative to the meal, so every excursion is described on the same time axis.
+from 30 minutes before to 240 minutes after and index it in minutes relative to
+the meal, so every excursion is described on the same time axis.
 After dropping windows with too little coverage, this yields 1,657 meal
 excursions from 45 subjects.
 
