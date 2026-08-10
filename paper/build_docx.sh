@@ -6,7 +6,8 @@ if ! command -v pandoc >/dev/null 2>&1; then
   echo "pandoc is not installed (see https://pandoc.org/installing.html)" >&2
   exit 1
 fi
-pandoc paper.md -o paper.docx --resource-path=. --metadata lang=en-US
+pandoc paper.md -o paper.docx --resource-path=. --metadata lang=en-US \
+  --metadata "keywords=continuous glucose monitoring, individuality, re-identification, diabetes"
 if [ ! -s paper.docx ]; then
   echo "build failed: paper.docx is empty" >&2
   exit 1
