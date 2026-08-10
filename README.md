@@ -33,6 +33,10 @@ pip install -r requirements.txt
 python run_all.py
 ```
 
+Two checks live in `tests/`: `test_smoke.py` runs the pipeline end to end, and
+`test_results.py` confirms the headline numbers land in sane ranges. Both skip
+quietly if the dataset is not present.
+
 `run_all.py` reports the individuality, fingerprint, re-identification, and
 classification results in a single pass.
 
