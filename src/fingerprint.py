@@ -30,20 +30,20 @@ def within_between(Z, subjects):
     """mean cosine distance for same-person meal pairs vs different-person."""
     D = cosine_distances(Z)
     same = subjects[:, None] == subjects[None, :]
-    np.fill_diagonal(same, False)  # don't compare a meal with itself
-    within = D[same].mean()
-    between = D[~same].mean()
+    eye = np.eye(len(subjects), dtype=bool)
+    within = D[same & ~eye].mean()   # same person, drop the self-comparison
+    between = D[~same].mean()        # different person (self-pairs stay out)
     return within, between
 
 
 def separation_test(Z, subjects, n_perm=300, seed=0):
     """is the within-vs-between gap bigger than you'd get by shuffling labels?"""
     D = cosine_distances(Z)
+    eye = np.eye(len(subjects), dtype=bool)
 
     def gap(sub):
         same = sub[:, None] == sub[None, :]
-        np.fill_diagonal(same, False)
-        return D[~same].mean() - D[same].mean()
+        return D[~same].mean() - D[same & ~eye].mean()
 
     obs = gap(subjects)
     rng = np.random.default_rng(seed)
