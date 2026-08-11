@@ -41,12 +41,30 @@ def adjusted_icc(df, col, cmat):
     return icc(residualize(df, col, cmat), col)
 
 
+def bootstrap_adjusted_icc(df, col, cmat, n_boot=800, seed=0):
+    """95% CI for the adjusted ICC from a subject-level (cluster) bootstrap."""
+    r = residualize(df, col, cmat)
+    groups = {s: g[col].values for s, g in r.groupby("subject")}
+    subs = list(groups)
+    rng = np.random.default_rng(seed)
+    point = _icc_from_groups([groups[s] for s in subs])
+    boot = [_icc_from_groups([groups[s] for s in rng.choice(subs, len(subs))])
+            for _ in range(n_boot)]
+    lo, hi = np.percentile(boot, [2.5, 97.5])
+    return point, lo, hi
+
+
 def run(path="features.csv"):
     df = pd.read_csv(path)
     cmat = cov.covariate_matrix()
     print(f"{'feature':16s} {'icc':>6s} {'icc_adj':>8s}")
     for c in FEATURES:
         print(f"{c:16s} {icc(df, c):6.3f} {adjusted_icc(df, c, cmat):8.3f}")
+
+    print("\n95% ci for the adjusted icc (cluster bootstrap):")
+    for c in ("peak", "baseline"):
+        p, lo, hi = bootstrap_adjusted_icc(df, c, cmat)
+        print(f"  {c:9s} {p:.3f}  [{lo:.3f}, {hi:.3f}]")
 
 
 if __name__ == "__main__":
