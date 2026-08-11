@@ -5,7 +5,7 @@ import sys
 
 import pandas as pd
 
-sys.path.insert(0, "src")
+sys.path.insert(0, "cgm")
 import load_data as ld
 import windows as W
 import features as F
