@@ -11,9 +11,8 @@ import covariates as cov
 from config import FEATURES
 
 
-def icc(df, col, group="subject"):
+def _icc_from_groups(groups):
     # icc(1,1) from a one-way anova, handles the uneven group sizes
-    groups = [g[col].dropna().values for _, g in df.groupby(group)]
     groups = [g for g in groups if len(g) > 0]
     k = len(groups)
     n = sum(len(g) for g in groups)
@@ -22,6 +21,10 @@ def icc(df, col, group="subject"):
     ms_within = sum(((g - g.mean()) ** 2).sum() for g in groups) / (n - k)
     n0 = (n - sum(len(g) ** 2 for g in groups) / n) / (k - 1)
     return (ms_between - ms_within) / (ms_between + (n0 - 1) * ms_within)
+
+
+def icc(df, col, group="subject"):
+    return _icc_from_groups([g[col].dropna().values for _, g in df.groupby(group)])
 
 
 def residualize(df, col, cmat):
