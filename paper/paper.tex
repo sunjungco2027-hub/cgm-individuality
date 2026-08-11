@@ -188,7 +188,9 @@ from one person are correlated, a random split would let the model recognize the
 person instead of the condition, so we evaluate with five-fold cross-validation
 grouped by subject, meaning every subject's meals fall entirely in either the
 training or the test fold. We read feature importance from the standardized
-logistic-regression coefficients.
+logistic-regression coefficients. To test whether the excursion shape predicts
+beyond glucose level, we also re-run this classifier on feature subsets that drop
+the amplitude features.
 
 \subsection{Implementation}
 All analyses use Python with scikit-learn~\cite{pedregosa2011}. Feature
@@ -266,8 +268,29 @@ in the diabetes classifier. The trait that makes a person recognizable is, at
 least here, the same trait that flags their metabolic risk. That overlap is worth
 a caution as much as a claim: because the diabetes label is defined by glucose
 level, features that re-measure level are expected to predict it, so the honest
-open question is how much the shape of the excursion adds beyond height. We leave
-a direct test of that, holding out the amplitude features, for future work.
+open question is how much the shape of the excursion adds beyond height. To test
+this directly, we re-ran the classifier on feature subsets
+(Table~\ref{tab:ablation}). Removing peak and baseline glucose lowers the AUC from
+0.87 to 0.71, and dropping every amplitude feature, leaving only timing, kinetic,
+and shape, still reaches 0.66, well above the 0.5 chance level. Glucose level
+alone gives 0.85. Amplitude therefore carries most of the signal, as the label
+makes inevitable, but the shape of the excursion predicts diabetes on its own.
+
+\begin{table}[!t]
+\centering
+\caption{Diabetes prediction under feature ablation (subject-grouped CV).}
+\label{tab:ablation}
+\begin{tabular}{lc}
+\hline
+Feature set & AUC \\
+\hline
+All ten features & 0.87 \\
+Without peak and baseline & 0.71 \\
+Without any amplitude feature & 0.66 \\
+Peak and baseline only & 0.85 \\
+\hline
+\end{tabular}
+\end{table}
 
 \section{Discussion}
 
@@ -290,9 +313,10 @@ numbers generalize, and the cohort leans toward one population, so the same
 analysis on a broader group could look different. The most important caveat is the
 label itself. Diabetes here is defined by fasting glucose and HbA1c, and the two
 strongest predictors re-measure glucose level, so part of the classification
-result is expected almost by definition. We flag the shape and kinetic features as
-the more interesting question and leave a clean test, holding out the amplitude
-features, for later. The re-identification accuracy is well above chance but
+result is expected almost by definition. The ablation in Table~\ref{tab:ablation}
+speaks to this: with the amplitude features removed, the shape and kinetic
+features still predict above chance, so the result is not only a restatement of
+glucose level. The re-identification accuracy is well above chance but
 modest, and it moves a little with the random split, so it should be read as
 evidence of a signature rather than as a working identifier. Finally, the ten
 features are a compact summary, and meal composition, time of day, and overlap
