@@ -21,18 +21,20 @@ def split(subjects: np.ndarray, frac: float = 0.8, seed: int = 0) -> tuple[np.nd
     return np.array(train), np.array(test)
 
 
-def run(path="features.csv", k=10):
-    # note: top-1/top-5 move around a bit depending on the split seed
-    Z, subjects = residual_matrix(path)
-    tr, te = split(subjects)
+def score(Z, subjects, seed=0, k=10):
+    """top-1 and top-5 accuracy for one gallery/probe split."""
+    tr, te = split(subjects, seed=seed)
     knn = KNeighborsClassifier(n_neighbors=k, metric="cosine").fit(Z[tr], subjects[tr])
     top1 = (knn.predict(Z[te]) == subjects[te]).mean()
-
-    proba = knn.predict_proba(Z[te])
-    order = np.argsort(-proba, axis=1)[:, :5]
+    order = np.argsort(-knn.predict_proba(Z[te]), axis=1)[:, :5]
     top5_labels = knn.classes_[order]
     top5 = np.mean([subjects[te][i] in top5_labels[i] for i in range(len(te))])
+    return top1, top5
 
+
+def run(path="features.csv", k=10):
+    Z, subjects = residual_matrix(path)
+    top1, top5 = score(Z, subjects, seed=0, k=k)
     n = len(np.unique(subjects))
     print(f"top-1 {top1:.3f}  (chance {1 / n:.3f})")
     print(f"top-5 {top5:.3f}  (chance {5 / n:.3f})")
