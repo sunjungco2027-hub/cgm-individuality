@@ -2,7 +2,7 @@
 
 Sun Jung
 
-International School Ho Chi Minh City (High School Student)
+International School of Ho Chi Minh City (High School Student, Class of 2027)
 
 *Index terms:* continuous glucose monitoring, individuality, re-identification, intraclass correlation, diabetes classification.
 
