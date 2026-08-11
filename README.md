@@ -15,7 +15,9 @@ values, whether it can re-identify a subject, and whether it predicts diabetes.
 | Diabetes classification | subject-grouped CV AUC | 0.87 |
 
 Peak and baseline glucose turn out to be both the most person-specific features
-and the strongest diabetes predictors.
+and the strongest diabetes predictors. Dropping those two glucose-level features
+still leaves AUC 0.71, and shape, timing, and kinetic features on their own reach
+0.66, so the prediction is not just a restatement of glucose level.
 
 ## Repository layout
 
