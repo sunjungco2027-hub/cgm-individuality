@@ -23,6 +23,7 @@ and the strongest diabetes predictors.
 |---|---|
 | `src/` | feature extraction, ICC, fingerprinting, re-identification, classifier, plots |
 | `build_features.py` / `run_all.py` | build the per-meal table / run the whole pipeline |
+| `describe_cohort.py` | quick summary: meals per subject, feature completeness |
 | `tests/` | end-to-end sanity check |
 | `paper/` | manuscript (`paper.md`, IEEE `paper.tex`, `paper.docx`) and figures |
 
