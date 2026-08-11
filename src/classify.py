@@ -56,5 +56,21 @@ def run(path: str = "features.csv") -> None:
         print(f"  {FEATURES[i]:16s} {coefs[i]:+.2f}")
 
 
+AMPLITUDE = ["baseline", "peak", "height", "auc"]
+
+
+def ablation(path: str = "features.csv") -> None:
+    """does prediction hold up once the glucose-level features are taken out?"""
+    df = load(path)
+    subsets = [
+        ("all features", FEATURES),
+        ("without peak and baseline", [c for c in FEATURES if c not in ("peak", "baseline")]),
+        ("without any amplitude", [c for c in FEATURES if c not in AMPLITUDE]),
+        ("peak and baseline only", ["peak", "baseline"]),
+    ]
+    for name, cols in subsets:
+        print(f"{name:26s} auc {grouped_auc(df, cols):.3f}")
+
+
 if __name__ == "__main__":
     run()
