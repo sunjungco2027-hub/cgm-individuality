@@ -8,7 +8,7 @@ features.csv
 /figures/
 *.png
 # but keep the figures used in the paper
-!paper/figures/*.png
+!manuscript/figures/*.png
 
 # latex build artifacts
 *.aux

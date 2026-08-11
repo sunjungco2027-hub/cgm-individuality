@@ -23,11 +23,11 @@ still leaves AUC 0.71, and shape, timing, and kinetic features on their own reac
 
 | Path | Contents |
 |---|---|
-| `src/` | feature extraction, ICC, fingerprinting, re-identification, classifier, plots |
+| `cgm/` | feature extraction, ICC, fingerprinting, re-identification, classifier, plots |
 | `build_features.py` / `run_all.py` | build the per-meal table / run the whole pipeline |
 | `describe_cohort.py` | quick summary: meals per subject, feature completeness |
 | `tests/` | end-to-end sanity check |
-| `paper/` | manuscript (`paper.md`, IEEE `paper.tex`, `paper.docx`) and figures |
+| `manuscript/` | manuscript (`paper.md`, IEEE `paper.tex`, `paper.docx`) and figures |
 
 ## Getting started
 
@@ -51,7 +51,7 @@ under `data/` before running anything.
 
 ## Paper
 
-The write-up lives in `paper/`: a markdown draft (`paper.md`), a two-column IEEE
+The write-up lives in `manuscript/`: a markdown draft (`paper.md`), a two-column IEEE
 version (`paper.tex`, compiles on Overleaf), and a Word export (`paper.docx`).
 
 ## Citing
