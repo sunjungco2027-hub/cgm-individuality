@@ -175,7 +175,8 @@ model with ten neighbours and a cosine metric is fit on the residualized gallery
 features, and we ask it to name the subject behind each held-out meal. We report
 top-1 accuracy, whether the correct person is the first guess, and top-5 accuracy,
 whether the correct person is among the first five, each against the chance rates
-of $1/45$ and $5/45$.
+of $1/45$ and $5/45$. We repeat this over 20 random gallery and probe splits and
+report the mean.
 
 \subsection{Diabetes classification}
 Finally we test whether the same features predict diabetes. Subjects are labelled
@@ -233,10 +234,10 @@ Within-subject pairs sit closer than between-subject pairs.}
 
 \subsection{Re-identification}
 The re-identification task turns that signal into a concrete number. Given a
-held-out meal, the nearest-neighbour model names the correct person first 13
-percent of the time, against a chance rate of about 2 percent, and it places the
-correct person in its top five guesses 42 percent of the time, against a chance
-rate of 11 percent. Both are several times chance. The accuracy is far from
+held-out meal, the nearest-neighbour model names the correct person first about
+15 percent of the time, against a chance rate of about 2 percent, and it places
+the correct person in its top five guesses about 39 percent of the time, against
+a chance rate of 11 percent (means over 20 random splits). Both are several times chance. The accuracy is far from
 identification-grade, which is expected for a small set of features, but it shows
 that a meal response carries enough of a signature to point back at the person who
 produced it.

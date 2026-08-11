@@ -11,7 +11,7 @@ values, whether it can re-identify a subject, and whether it predicts diabetes.
 |---|---|---|
 | Individuality (covariate-adjusted ICC) | peak / baseline glucose | 0.24 / 0.20 |
 | Fingerprint (cosine distance) | within vs between subject | 0.91 vs 1.00, permutation p = 0.003 |
-| Re-identification | top-1 / top-5 (chance) | 0.13 / 0.42 (0.02 / 0.11) |
+| Re-identification | top-1 / top-5 (chance) | 0.15 / 0.39 (0.02 / 0.11) |
 | Diabetes classification | subject-grouped CV AUC | 0.87 |
 
 Peak and baseline glucose turn out to be both the most person-specific features
