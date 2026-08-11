@@ -32,12 +32,15 @@ def score(Z, subjects, seed=0, k=10):
     return top1, top5
 
 
-def run(path="features.csv", k=10):
+def run(path="features.csv", k=10, n_splits=20):
+    # average over several random splits so the numbers do not hinge on one seed
     Z, subjects = residual_matrix(path)
-    top1, top5 = score(Z, subjects, seed=0, k=k)
+    scores = np.array([score(Z, subjects, seed=s, k=k) for s in range(n_splits)])
+    top1, top5 = scores.mean(axis=0)
     n = len(np.unique(subjects))
     print(f"top-1 {top1:.3f}  (chance {1 / n:.3f})")
     print(f"top-5 {top5:.3f}  (chance {5 / n:.3f})")
+    print(f"(mean over {n_splits} random splits)")
 
 
 if __name__ == "__main__":
