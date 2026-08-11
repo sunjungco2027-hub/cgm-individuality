@@ -30,6 +30,9 @@ def main():
     print("\n== diabetes classification ==")
     classify.run()
 
+    print("\n== ablation: auc as feature groups are removed ==")
+    classify.ablation()
+
 
 if __name__ == "__main__":
     main()
