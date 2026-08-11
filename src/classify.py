@@ -22,21 +22,32 @@ def load(path: str = "features.csv") -> pd.DataFrame:
     return df.dropna(subset=["y"])
 
 
-def run(path: str = "features.csv") -> None:
-    df = load(path)
-    X = df[FEATURES].values
-    y = df["y"].astype(int).values
-    groups = df["subject"].values
-    pipe = make_pipeline(
+def _pipe():
+    return make_pipeline(
         SimpleImputer(strategy="median"),
         StandardScaler(),
         LogisticRegression(max_iter=1000),
     )
-    proba = cross_val_predict(pipe, X, y, cv=GroupKFold(5), groups=groups,
+
+
+def grouped_auc(df: pd.DataFrame, cols) -> float:
+    """subject-grouped 5-fold CV AUC for a chosen set of features."""
+    X = df[cols].values
+    y = df["y"].astype(int).values
+    proba = cross_val_predict(_pipe(), X, y, cv=GroupKFold(5),
+                              groups=df["subject"].values,
                               method="predict_proba")[:, 1]
-    print("grouped-cv auc:", round(roc_auc_score(y, proba), 3))
+    return roc_auc_score(y, proba)
+
+
+def run(path: str = "features.csv") -> None:
+    df = load(path)
+    X = df[FEATURES].values
+    y = df["y"].astype(int).values
+    print("grouped-cv auc:", round(grouped_auc(df, FEATURES), 3))
 
     # which features carry the most weight (standardized coefficients)
+    pipe = _pipe()
     pipe.fit(X, y)
     coefs = pipe[-1].coef_[0]
     order = np.argsort(-np.abs(coefs))
