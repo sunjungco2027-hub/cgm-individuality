@@ -72,8 +72,45 @@ def test_classifier_beats_chance():
     print("classifier ok")
 
 
+def test_reported_numbers_reproduce():
+    """the headline numbers quoted in the paper should fall out of the pipeline."""
+    if not _ready():
+        return
+    import numpy as np
+    import covariates as cov
+    import individuality as ind
+    import fingerprint as fp
+    import reid
+    import classify
+
+    df = pd.read_csv(FEATURES_CSV)
+    cmat = cov.covariate_matrix()
+    assert abs(ind.icc(df, "peak") - 0.646) < 0.01
+    assert abs(ind.icc(df, "baseline") - 0.556) < 0.01
+    assert abs(ind.adjusted_icc(df, "peak", cmat) - 0.244) < 0.01
+    assert abs(ind.adjusted_icc(df, "baseline", cmat) - 0.197) < 0.01
+
+    Z, s = fp.residual_matrix(FEATURES_CSV)
+    within, between = fp.within_between(Z, s)
+    assert abs(within - 0.912) < 0.005 and abs(between - 0.998) < 0.005
+    assert abs(fp.cohens_d(Z, s) - 0.183) < 0.01
+    _, p = fp.separation_test(Z, s)
+    assert p <= 0.01
+
+    top1, top5 = np.array([reid.score(Z, s, seed=i, k=10)
+                           for i in range(20)]).mean(axis=0)
+    assert abs(top1 - 0.147) < 0.02 and abs(top5 - 0.388) < 0.02
+
+    cdf = classify.load(FEATURES_CSV)
+    assert abs(classify.grouped_auc(cdf, classify.FEATURES) - 0.870) < 0.01
+    no_amp = [c for c in classify.FEATURES if c not in classify.AMPLITUDE]
+    assert abs(classify.grouped_auc(cdf, no_amp) - 0.664) < 0.02
+    print("reported numbers reproduce")
+
+
 if __name__ == "__main__":
     test_individuality()
     test_fingerprint()
     test_classifier_beats_chance()
+    test_reported_numbers_reproduce()
     print("all good")
