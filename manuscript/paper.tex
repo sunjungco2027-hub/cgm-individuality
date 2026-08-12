@@ -350,11 +350,17 @@ re-identification task, and it survives covariate adjustment. Larger and more
 diverse data, richer features, and the amplitude-free test noted above would show
 how much further the idea holds.
 
-\section*{Data and Code Availability}
+\section*{Reproducibility}
 The CGMacros dataset is publicly available from PhysioNet. All feature-extraction
-and analysis code, together with the scripts that reproduce every number reported
-here, is open source at
-\url{github.com/sunjungco2027-hub/cgm-individuality}.
+and analysis code is open source at
+\url{github.com/sunjungco2027-hub/cgm-individuality}, and a single command
+regenerates every number reported here. The pipeline is deterministic: random
+splits are seeded and the re-identification result is averaged over twenty fixed
+splits. A test suite pins the reported values so that any change moving them is
+caught, and a separate set of tests checks the intraclass correlation against an
+independent one-way ANOVA computation and verifies the effect-size and
+permutation calculations on synthetic data with known answers. The results in
+this paper correspond to the tagged release \texttt{v1.0} of the repository.
 
 \section*{Acknowledgment}
 The author thanks Dr. Seo Ho Song for guidance and feedback throughout this
