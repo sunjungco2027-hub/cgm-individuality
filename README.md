@@ -51,8 +51,9 @@ under `data/` before running anything.
 
 ## Paper
 
-The write-up lives in `manuscript/`: a markdown draft (`paper.md`), a two-column IEEE
-version (`paper.tex`, compiles on Overleaf), and a Word export (`paper.docx`).
+The write-up lives in `manuscript/`: a markdown draft (`paper.md`), a two-column
+IEEE version (`paper.tex`) with its compiled `paper.pdf`, and a Word export
+(`paper.docx`).
 
 ## Citing
 
