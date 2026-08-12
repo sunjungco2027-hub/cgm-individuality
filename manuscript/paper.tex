@@ -7,6 +7,7 @@
 \usepackage{amsmath}
 \usepackage{microtype}
 \usepackage{balance}
+\usepackage[hidelinks]{hyperref}
 
 \begin{document}
 
@@ -353,7 +354,7 @@ how much further the idea holds.
 \section*{Reproducibility}
 The CGMacros dataset is publicly available from PhysioNet. All feature-extraction
 and analysis code is open source at
-\url{github.com/sunjungco2027-hub/cgm-individuality}, and a single command
+\href{https://github.com/sunjungco2027-hub/cgm-individuality}{\nolinkurl{github.com/sunjungco2027-hub/cgm-individuality}}, and a single command
 regenerates every number reported here. The pipeline is deterministic: random
 splits are seeded and the re-identification result is averaged over twenty fixed
 splits. A test suite pins the reported values so that any change moving them is

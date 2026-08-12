@@ -341,7 +341,7 @@ how much further the idea holds.
 
 ## Reproducibility
 
-The CGMacros dataset is publicly available from PhysioNet. All feature-extraction and analysis code is open source at github.com/sunjungco2027-hub/cgm-individuality, and a single command regenerates every number reported here. The pipeline is deterministic: random splits are seeded and the re-identification result is averaged over twenty fixed splits. A test suite pins the reported values so that any change moving them is caught, and a separate set of tests checks the intraclass correlation against an independent one-way ANOVA computation and verifies the effect-size and permutation calculations on synthetic data with known answers. The results in this paper correspond to the tagged release v1.0 of the repository.
+The CGMacros dataset is publicly available from PhysioNet. All feature-extraction and analysis code is open source at [github.com/sunjungco2027-hub/cgm-individuality](https://github.com/sunjungco2027-hub/cgm-individuality), and a single command regenerates every number reported here. The pipeline is deterministic: random splits are seeded and the re-identification result is averaged over twenty fixed splits. A test suite pins the reported values so that any change moving them is caught, and a separate set of tests checks the intraclass correlation against an independent one-way ANOVA computation and verifies the effect-size and permutation calculations on synthetic data with known answers. The results in this paper correspond to the tagged release v1.0 of the repository.
 
 ## Acknowledgments
 
