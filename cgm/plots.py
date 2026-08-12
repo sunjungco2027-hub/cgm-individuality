@@ -13,7 +13,38 @@ from sklearn.preprocessing import StandardScaler
 
 import classify
 import fingerprint as fp
+import load_data as ld
+import windows as W
 from config import FEATURES
+
+
+def window_example():
+    """a labelled example excursion: the mean meal response of one subject."""
+    df = ld.load_subject(ld.subject_files()[0])
+    grid = np.arange(-30, 241)
+    stack = []
+    for t in ld.meal_events(df)["Timestamp"]:
+        w = W.excursion(df, t)
+        s = w.set_index(w["min"].round().astype(int))["Libre GL"]
+        s = s[~s.index.duplicated()].reindex(grid)
+        if s.notna().mean() > 0.9:
+            stack.append(s.to_numpy(dtype=float))
+    mean = np.nanmean(np.array(stack), axis=0)
+    base = np.nanmean(mean[grid <= 0])
+    pk_i = int(np.nanargmax(mean))
+
+    plt.figure(figsize=(5, 3))
+    plt.plot(grid, mean, color="#1f77b4")
+    plt.axhline(base, ls="--", color="gray", lw=1)
+    plt.axvline(0, color="gray", lw=0.8)
+    plt.scatter([grid[pk_i]], [mean[pk_i]], color="crimson", zorder=5)
+    plt.annotate("peak", (grid[pk_i], mean[pk_i]),
+                 textcoords="offset points", xytext=(6, 3))
+    plt.annotate("baseline", (grid[0], base),
+                 textcoords="offset points", xytext=(2, 4))
+    plt.xlabel("minutes relative to meal")
+    plt.ylabel("glucose (mg/dL)")
+    plt.savefig("figures/window_example.png", dpi=150, bbox_inches="tight")
 
 
 def distance_hist():
@@ -46,6 +77,7 @@ def importance_bar():
 
 if __name__ == "__main__":
     os.makedirs("figures", exist_ok=True)
+    window_example()
     distance_hist()
     importance_bar()
     print("saved figures")
