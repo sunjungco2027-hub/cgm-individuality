@@ -17,7 +17,8 @@ adjusting for demographics and fasting labs, peak and baseline glucose remain th
 most person-specific features, meals from the same person cluster together more
 tightly than meals from different people (permutation p = 0.003), and a
 nearest-neighbour model re-identifies the subject behind a held-out meal well
-above chance. The same features predict diabetes under subject-grouped
+above chance (the correct person is among the top five guesses 39% of the time,
+against 11% by chance). The same features predict diabetes under subject-grouped
 cross-validation, and the features that are most individual are also the most
 predictive. Postprandial glucose responses therefore carry a covariate-independent
 individual signature that doubles as a signal of metabolic health.
@@ -40,7 +41,10 @@ left untested is whether the individual component survives once demographics and
 laboratory values are removed, and it has not tried to measure that individuality
 the way biometrics does, by asking whether an unseen meal can be traced back to
 the right person. Framing the problem as re-identification is what lets us report
-individuality as an accuracy rather than an impression.
+individuality as an accuracy rather than an impression. Cast this way it is a
+data-mining question: finding a stable individual signature in noisy, repeated
+physiological measurements, and mining that signature for a downstream clinical
+signal.
 
 This paper makes two contributions. First, using covariate-adjusted repeatability,
 multivariate distance, and a re-identification test on held-out meals, we show
@@ -120,9 +124,15 @@ We use the public CGMacros dataset, which pairs minute-level CGM traces with mea
 logs and a per-subject panel of demographics and fasting labs. A meal is any
 logged event with positive caloric intake. Around each meal we take the window
 from 30 minutes before to 240 minutes after and index it in minutes relative to
-the meal, so every excursion is described on the same time axis.
+the meal, so every excursion is described on the same time axis (Figure 1).
 After dropping windows with too little coverage, this yields 1,657 meal
 excursions from 45 subjects.
+
+![Figure 1](figures/fig-window.png)
+
+*Figure 1. An example postprandial excursion, the mean meal response of one
+subject, with the pre-meal baseline and the peak marked. The ten features are
+read off this curve.*
 
 From each window we compute ten features that summarize the curve rather than a
 single average. Four are amplitude features (pre-meal baseline, peak, the rise
@@ -228,11 +238,11 @@ person is 0.912, smaller than the 0.998 between meals from different people. The
 gap is a small effect by Cohen's conventions, d = 0.18, but the permutation test
 rules out chance, with p = 0.003 across 300 shuffles of the subject labels. So
 the individual signal is modest in size yet reliably present once demographics
-and labs are removed (Figure 1).
+and labs are removed (Figure 2).
 
-![Figure 1](figures/fig1-distance.png)
+![Figure 2](figures/fig1-distance.png)
 
-*Figure 1. Cosine distances between meals in the residualized feature space.
+*Figure 2. Cosine distances between meals in the residualized feature space.
 Within-subject pairs sit closer than between-subject pairs.*
 
 ### Re-identification
@@ -254,11 +264,11 @@ area under the ROC curve of 0.87, so the features generalize to people the model
 has not seen rather than memorizing individuals. The standardized coefficients
 rank peak glucose first, then baseline glucose and the rise from baseline to
 peak. The amplitude features do most of the work, with timing and shape features
-contributing little on their own (Figure 2).
+contributing little on their own (Figure 3).
 
-![Figure 2](figures/fig2-importance.png)
+![Figure 3](figures/fig2-importance.png)
 
-*Figure 2. Standardized logistic-regression coefficients. Peak and baseline
+*Figure 3. Standardized logistic-regression coefficients. Peak and baseline
 glucose carry the most weight.*
 
 ### The two results meet on the same features
