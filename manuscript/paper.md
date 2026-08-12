@@ -339,6 +339,10 @@ re-identification task, and it survives covariate adjustment. Larger and more
 diverse data, richer features, and the amplitude-free test noted above would show
 how much further the idea holds.
 
+## Acknowledgments
+
+The author thanks Dr. Seo Ho Song for guidance and feedback throughout this project. This work uses the CGMacros dataset, and the author thanks its creators and PhysioNet for making the data openly available.
+
 ## References
 
 Battelino, T., Danne, T., Bergenstal, R. M., et al. (2019). Clinical targets for continuous glucose monitoring data interpretation. Diabetes Care, 42(8), 1593-1603.
