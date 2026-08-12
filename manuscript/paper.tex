@@ -29,7 +29,7 @@ shape, and treat each meal as a repeated measurement of its subject. After
 adjusting for demographics and fasting labs, peak and baseline glucose remain the
 most person-specific features, meals from the same person cluster together more
 tightly than meals from different people (permutation $p = 0.003$), and a
-nearest-neighbour model re-identifies the subject behind a held-out meal well
+nearest-neighbor model re-identifies the subject behind a held-out meal well
 above chance (the correct person is among the top five guesses 39\% of the time,
 against 11\% by chance). The same features predict diabetes under subject-grouped
 cross-validation, and the features that are most individual are also the most
@@ -186,8 +186,8 @@ reshuffled gap is at least as large as the observed one.
 \subsection{Re-identification}
 Distances tell us that people separate, but not by how much in practical terms. To
 put a number on it we set up a re-identification task. Each subject's meals are
-split, 80 percent into a gallery and 20 percent held out. A nearest-neighbour
-model with ten neighbours and a cosine metric is fit on the residualized gallery
+split, 80 percent into a gallery and 20 percent held out. A nearest-neighbor
+model with ten neighbors and a cosine metric is fit on the residualized gallery
 features, and we ask it to name the subject behind each held-out meal. We report
 top-1 accuracy, whether the correct person is the first guess, and top-5 accuracy,
 whether the correct person is among the first five, each against the chance rates
@@ -195,7 +195,7 @@ of $1/45$ and $5/45$. We repeat this over 20 random gallery and probe splits and
 report the mean.
 
 \subsection{Diabetes classification}
-Finally we test whether the same features predict diabetes. Subjects are labelled
+Finally we test whether the same features predict diabetes. Subjects are labeled
 diabetic if their HbA1c is at least 6.5 percent or their fasting glucose is at
 least 126 mg/dL, following the ADA thresholds, and the label is carried down to
 every meal from that subject. A logistic-regression classifier is trained on the
@@ -253,7 +253,7 @@ Within-subject pairs sit closer than between-subject pairs.}
 
 \subsection{Re-identification}
 The re-identification task turns that signal into a concrete number. Given a
-held-out meal, the nearest-neighbour model names the correct person first about
+held-out meal, the nearest-neighbor model names the correct person first about
 15 percent of the time, against a chance rate of about 2 percent, and it places
 the correct person in its top five guesses about 39 percent of the time, against
 a chance rate of 11 percent (means over 20 random splits). Both are several times chance. The accuracy is far from
